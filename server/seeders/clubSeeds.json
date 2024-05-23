@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Classic Literature Club",
+    "books": ["Don Quixote", "A Tale of Two Cities", "Pride and Prejudice"],
+    "users": ["Brian Kernighan", "Max Kanat-Alexander", "Why The Lucky Stiff"]
+  },
+  {
+    "name": "Fantasy Lovers Club",
+    "books": ["The Lord of the Rings", "The Hobbit", "Harry Potter and the Sorcerer's Stone"],
+    "users": ["Kent Beck", "Edward V. Berard", "Alan Kay"]
+  },
+  {
+    "name": "Mystery & Thriller Club",
+    "books": ["And Then There Were None", "The Da Vinci Code", "The Girl with the Dragon Tattoo"],
+    "users": ["C.A.R. Hoare", "David Thomas", "Donald Knuth"]
+  },
+  {
+    "name": "Science Fiction Club",
+    "books": ["Dune", "Ender's Game", "The Hitchhiker's Guide to the Galaxy"],
+    "users": ["Grace Hopper", "Ada Lovelace", "Linus Torvalds"]
+  },
+  {
+    "name": "Modern Classics Club",
+    "books": ["The Catcher in the Rye", "To Kill a Mockingbird", "1984"],
+    "users": ["Margaret Hamilton", "Dennis Ritchie", "Bjarne Stroustrup"]
+  }
+]

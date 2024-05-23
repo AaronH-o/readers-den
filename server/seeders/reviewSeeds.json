@@ -1,0 +1,102 @@
+[
+  {
+    "reviewText": "An absolute masterpiece. A must-read for everyone.",
+    "reviewAuthor": "Alice Smith",
+    "createdAt": "2024-01-01T10:00:00Z"
+  },
+  {
+    "reviewText": "Incredibly insightful and well-written.",
+    "reviewAuthor": "Bob Johnson",
+    "createdAt": "2024-01-02T11:30:00Z"
+  },
+  {
+    "reviewText": "A fascinating journey into the world of programming.",
+    "reviewAuthor": "Charlie Brown",
+    "createdAt": "2024-01-03T14:45:00Z"
+  },
+  {
+    "reviewText": "Couldn't put it down. Highly recommend!",
+    "reviewAuthor": "Diane Lee",
+    "createdAt": "2024-01-04T09:15:00Z"
+  },
+  {
+    "reviewText": "A great read for both beginners and experts.",
+    "reviewAuthor": "Eve Davis",
+    "createdAt": "2024-01-05T08:20:00Z"
+  },
+  {
+    "reviewText": "Very informative and engaging.",
+    "reviewAuthor": "Frank Wilson",
+    "createdAt": "2024-01-06T12:10:00Z"
+  },
+  {
+    "reviewText": "A timeless classic that stands the test of time.",
+    "reviewAuthor": "Grace Hopper",
+    "createdAt": "2024-01-07T13:30:00Z"
+  },
+  {
+    "reviewText": "A must-read for anyone in the tech industry.",
+    "reviewAuthor": "Hank Williams",
+    "createdAt": "2024-01-08T15:00:00Z"
+  },
+  {
+    "reviewText": "Detailed and very well explained.",
+    "reviewAuthor": "Ivy Clarke",
+    "createdAt": "2024-01-09T11:00:00Z"
+  },
+  {
+    "reviewText": "An essential addition to any programmer's library.",
+    "reviewAuthor": "Jack Martin",
+    "createdAt": "2024-01-10T10:45:00Z"
+  },
+  {
+    "reviewText": "Packed with useful information.",
+    "reviewAuthor": "Kate Brown",
+    "createdAt": "2024-01-11T14:00:00Z"
+  },
+  {
+    "reviewText": "An interesting perspective on programming.",
+    "reviewAuthor": "Liam Nguyen",
+    "createdAt": "2024-01-12T09:00:00Z"
+  },
+  {
+    "reviewText": "A comprehensive guide that is easy to follow.",
+    "reviewAuthor": "Mia Harris",
+    "createdAt": "2024-01-13T16:00:00Z"
+  },
+  {
+    "reviewText": "Informative and highly educational.",
+    "reviewAuthor": "Noah Turner",
+    "createdAt": "2024-01-14T08:30:00Z"
+  },
+  {
+    "reviewText": "A brilliant book that covers all the basics.",
+    "reviewAuthor": "Olivia King",
+    "createdAt": "2024-01-15T11:15:00Z"
+  },
+  {
+    "reviewText": "Well-written and very insightful.",
+    "reviewAuthor": "Paul Adams",
+    "createdAt": "2024-01-16T12:45:00Z"
+  },
+  {
+    "reviewText": "A must-have for any software developer.",
+    "reviewAuthor": "Quinn White",
+    "createdAt": "2024-01-17T13:00:00Z"
+  },
+  {
+    "reviewText": "Engaging and very informative.",
+    "reviewAuthor": "Riley Scott",
+    "createdAt": "2024-01-18T09:45:00Z"
+  },
+  {
+    "reviewText": "An excellent resource for learning.",
+    "reviewAuthor": "Sophie Green",
+    "createdAt": "2024-01-19T10:30:00Z"
+  },
+  {
+    "reviewText": "Very useful for understanding key concepts.",
+    "reviewAuthor": "Tyler Evans",
+    "createdAt": "2024-01-20T08:15:00Z"
+  }
+]
