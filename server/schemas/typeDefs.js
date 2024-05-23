@@ -23,7 +23,7 @@ const typeDefs = `
   type Review {
     _id: ID
     Text: String
-    authorId: String
+    userId: String
     createdAt: String
     bookId: ID
   }
