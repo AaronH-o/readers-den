@@ -29,6 +29,7 @@ const BookReviewForm = () => {
       const { data } = await addBook({
         variables: {
           bookReviewText,
+          bookRating,
           bookReviewAuthor: Auth.getProfile().data.username,
         },
       });
@@ -43,7 +44,8 @@ const BookReviewForm = () => {
     const { name, value } = event.target;
 
     if (name === 'bookReviewText' && value.length <= 280) {
-      setBookreviewText(value);
+      setBookReviewText(value);
+      setBookRating(value);
       setCharacterCount(value.length);
     }
   };
