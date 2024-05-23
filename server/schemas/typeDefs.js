@@ -5,6 +5,8 @@ const typeDefs = `
     email: String
     password: String
     books: [Book]!
+    clubs: [Club]!
+
   }
 
   type Book {
@@ -13,6 +15,9 @@ const typeDefs = `
     author: String
     createdAt: String
     reviews: [Review]!
+    clubs:[Club]!
+    user:[User]!
+    ratings:[Rating]
   }
 
   type Review {
@@ -20,13 +25,23 @@ const typeDefs = `
     Text: String
     authorId: String
     createdAt: String
+    bookId: ID
   }
   type Club {
     _id: ID
     name: String
     books: [Book]!
     users: [User]!
+
   }
+  type Rating {
+    _id: ID
+    value: Int
+    userId: ID
+    clubId: ID
+    bookId: ID
+  }
+
 
   type Auth {
     token: ID!
@@ -51,8 +66,10 @@ const typeDefs = `
     addClub(name: String!): Club
     addBookToClub(clubId: ID!, bookId: ID!): Club
     addUserToClub(clubId: ID!, userId: ID!): Club
+    addRating(value: Int!, userId: ID!, clubId: ID!, bookId: ID!): Rating
     removeBook(bookId: ID!): Book
     removeReview(bookId: ID!, reviewId: ID!): Book
+    removeRating(ratingId: ID!): Rating
   }
 `;
 
