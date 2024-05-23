@@ -1,15 +1,22 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
-const thoughtSchema = new Schema({
-  thoughtText: {
+const bookSchema = new Schema({
+  bookReviewText: {
     type: String,
-    required: 'You need to leave a thought!',
+    required: 'You need to leave a review!',
     minlength: 1,
     maxlength: 280,
     trim: true,
   },
-  thoughtAuthor: {
+  bookAuthor: {
+    type: String,
+    required: 'You need to note the author!',
+    minlength: 1,
+    maxlength: 280,
+    trim: true,
+    },
+  bookReviewAuthor: {
     type: String,
     required: true,
     trim: true,
@@ -40,6 +47,6 @@ const thoughtSchema = new Schema({
   ],
 });
 
-const Thought = model('Thought', thoughtSchema);
+const BookReview = model('BookReview', bookSchema);
 
-module.exports = Thought;
+module.exports = BookReview;
