@@ -1,20 +1,25 @@
-const { User, Thought } = require('../models');
+const { User, Book, Review, Club, Auth } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('thoughts');
+      return User.find().populate('users');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('thoughts');
+      return User.findOne({ username }).populate('users');
     },
-    thoughts: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Thought.find(params).sort({ createdAt: -1 });
+    books: async () => {
+      return Book.find().populate('books');
     },
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    book: async (parent, { id }) => {
+      return Book.findOne({ id }).populate('books');
+    },
+    club: async () => {
+      return Club.find().populate('clubs');
+    },
+    clubs: async (parent, { id }) => {
+      return Club.findOne({ id }).populate('clubs');
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -47,72 +52,32 @@ const resolvers = {
 
       return { token, user };
     },
-    addThought: async (parent, { thoughtText }, context) => {
-      if (context.user) {
-        const thought = await Thought.create({
-          thoughtText,
-          thoughtAuthor: context.user.username,
-        });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { thoughts: thought._id } }
-        );
-
-        return thought;
-      }
-      throw AuthenticationError;
-      ('You need to be logged in!');
+    addBook: async (parent, { title, author }) => {
+      const user = await Book.create({ title, author });
     },
-    addComment: async (parent, { thoughtId, commentText }, context) => {
-      if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          {
-            $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw AuthenticationError;
+    addReview: async (parent, { bookId, reviewText }) => {
+      const user = await Review.create({ bookId, reviewText });
     },
-    removeThought: async (parent, { thoughtId }, context) => {
-      if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
-        });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
-        );
-
-        return thought;
-      }
-      throw AuthenticationError;
+    addClub: async (parent, { name }) => {
+      const user = await Club.create({ name });
     },
-    removeComment: async (parent, { thoughtId, commentId }, context) => {
+    addBookToClub: async (parent, { clubId, bookId}) => {
+      
+    },
+    addUserToClub: async (parent, { clubId, bookId}) => {
+      
+    },
+    removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
+        return Book.findOneAndUpdate(
+          { _id: bookId },
           { new: true }
         );
       }
       throw AuthenticationError;
+    },
+    removeReview: async (parent, { bookId, reviewId }, context) => {
+      
     },
   },
 };
