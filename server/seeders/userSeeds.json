@@ -48,5 +48,55 @@
     "username": "Lernantino",
     "email": "lernantino@techfriends.dev",
     "password": "password10"
+  },
+  {
+    "username": "Grace Hopper",
+    "email": "ghopper@techfriends.dev",
+    "password": "password11"
+  },
+  {
+    "username": "Ada Lovelace",
+    "email": "alovelace@techfriends.dev",
+    "password": "password12"
+  },
+  {
+    "username": "Linus Torvalds",
+    "email": "ltorvalds@techfriends.dev",
+    "password": "password13"
+  },
+  {
+    "username": "Margaret Hamilton",
+    "email": "mhamilton@techfriends.dev",
+    "password": "password14"
+  },
+  {
+    "username": "Dennis Ritchie",
+    "email": "dritchie@techfriends.dev",
+    "password": "password15"
+  },
+  {
+    "username": "Bjarne Stroustrup",
+    "email": "bstroustrup@techfriends.dev",
+    "password": "password16"
+  },
+  {
+    "username": "Guido van Rossum",
+    "email": "gvanrossum@techfriends.dev",
+    "password": "password17"
+  },
+  {
+    "username": "James Gosling",
+    "email": "jgosling@techfriends.dev",
+    "password": "password18"
+  },
+  {
+    "username": "Tim Berners-Lee",
+    "email": "tbernerslee@techfriends.dev",
+    "password": "password19"
+  },
+  {
+    "username": "Steve Wozniak",
+    "email": "swozniak@techfriends.dev",
+    "password": "password20"
   }
 ]
