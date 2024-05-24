@@ -26,40 +26,7 @@ db.once("open", async () => {
         }
       );
     }
-
-    for (let i = 0; i < reviewSeeds.length; i++) {
-      const { _id, authorId, bookId } = await Review.create(reviewSeeds[i]);
-      await User.findByIdAndUpdate(authorId, {
-        $addToSet: {
-          reviews: _id,
-        },
-      });
-      await Book.findByIdAndUpdate(bookId, {
-        $addToSet: {
-          reviews: _id,
-        },
-      });
-    }
-
-    for (let i = 0; i < clubSeeds.length; i++) {
-      const { _id, books, users } = await Club.create(clubSeeds[i]);
-      await Book.updateMany(
-        { _id: { $in: books } },
-        {
-          $addToSet: {
-            clubs: _id,
-          },
-        }
-      );
-      await User.updateMany(
-        { _id: { $in: users } },
-        {
-          $addToSet: {
-            clubs: _id,
-          },
-        }
-      );
-    }
+    
   } catch (err) {
     console.error(err);
     process.exit(1);
