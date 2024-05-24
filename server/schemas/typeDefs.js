@@ -4,9 +4,8 @@ const typeDefs = `
     username: String
     email: String
     password: String
-    books: [Book]!
-    clubs: [Club]!
-
+    books: [Book]
+    clubs: [Club]
   }
 
   type Book {
@@ -14,34 +13,33 @@ const typeDefs = `
     title: String
     author: String
     createdAt: String
-    reviews: [Review]!
-    clubs:[Club]!
-    user:[User]!
+    reviews: [Review]
+    clubs:[Club]
+    user:[User]
     ratings:[Rating]
   }
 
   type Review {
     _id: ID
     Text: String
-    userId: String
+    userId: String!
     createdAt: String
-    bookId: ID
+    bookId: ID!
   }
+
   type Club {
     _id: ID
     name: String
-    books: [Book]!
+    books: [Book]
     users: [User]!
-
   }
+
   type Rating {
     _id: ID
     value: Int
-    userId: ID
-    clubId: ID
-    bookId: ID
+    userId: ID!
+    bookId: ID!
   }
-
 
   type Auth {
     token: ID!
