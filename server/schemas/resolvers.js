@@ -4,26 +4,26 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('users');
+      return User.find().populate();
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('users');
+      return User.findOne({ username }).populate();
     },
     books: async () => {
-      return Book.find().populate('books');
+      return Book.find().populate();
     },
     book: async (parent, { id }) => {
-      return Book.findOne({ id }).populate('books');
+      return Book.findOne({ id }).populate();
     },
     club: async () => {
-      return Club.find().populate('clubs');
+      return Club.find().populate();
     },
     clubs: async (parent, { id }) => {
-      return Club.findOne({ id }).populate('clubs');
+      return Club.findOne({ id }).populate();
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
+        return User.findOne({ _id: context.user._id }).populate();
       }
       throw AuthenticationError;
     },
