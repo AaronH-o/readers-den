@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import BookList from '../components/BookList';
 import BookReviewForm from '../components/BookReviewForm';
 
-import { QUERY_THOUGHTS } from '../utils/queries';
+import { QUERY_BOOKS } from '../utils/queries';
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_BOOKS);
