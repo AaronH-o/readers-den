@@ -1,82 +1,82 @@
 [
   {
-    "bookName": "Don Quixote",
-    "bookAuthor": "Miguel de Cervantes"
+    "title": "Don Quixote",
+    "author": "Miguel de Cervantes"
   },
   {
-    "bookName": "A Tale of Two Cities",
-    "bookAuthor": "Charles Dickens"
+    "title": "A Tale of Two Cities",
+    "author": "Charles Dickens"
   },
   {
-    "bookName": "The Lord of the Rings",
-    "bookAuthor": "J.R.R. Tolkien"
+    "title": "The Lord of the Rings",
+    "author": "J.R.R. Tolkien"
   },
   {
-    "bookName": "The Little Prince",
-    "bookAuthor": "Antoine de Saint-Exupéry"
+    "title": "The Little Prince",
+    "author": "Antoine de Saint-Exupéry"
   },
   {
-    "bookName": "Harry Potter and the Sorcerer's Stone",
-    "bookAuthor": "J.K. Rowling"
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling"
   },
   {
-    "bookName": "And Then There Were None",
-    "bookAuthor": "Agatha Christie"
+    "title": "And Then There Were None",
+    "author": "Agatha Christie"
   },
   {
-    "bookName": "The Hobbit",
-    "bookAuthor": "J.R.R. Tolkien"
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien"
   },
   {
-    "bookName": "Dream of the Red Chamber",
-    "bookAuthor": "Cao Xueqin"
+    "title": "Dream of the Red Chamber",
+    "author": "Cao Xueqin"
   },
   {
-    "bookName": "The Lion, the Witch and the Wardrobe",
-    "bookAuthor": "C.S. Lewis"
+    "title": "The Lion, the Witch and the Wardrobe",
+    "author": "C.S. Lewis"
   },
   {
-    "bookName": "She: A History of Adventure",
-    "bookAuthor": "H. Rider Haggard"
+    "title": "She: A History of Adventure",
+    "author": "H. Rider Haggard"
   },
   {
-    "bookName": "The Catcher in the Rye",
-    "bookAuthor": "J.D. Salinger"
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger"
   },
   {
-    "bookName": "The Da Vinci Code",
-    "bookAuthor": "Dan Brown"
+    "title": "The Da Vinci Code",
+    "author": "Dan Brown"
   },
   {
-    "bookName": "The Alchemist",
-    "bookAuthor": "Paulo Coelho"
+    "title": "The Alchemist",
+    "author": "Paulo Coelho"
   },
   {
-    "bookName": "Harry Potter and the Chamber of Secrets",
-    "bookAuthor": "J.K. Rowling"
+    "title": "Harry Potter and the Chamber of Secrets",
+    "author": "J.K. Rowling"
   },
   {
-    "bookName": "Harry Potter and the Prisoner of Azkaban",
-    "bookAuthor": "J.K. Rowling"
+    "title": "Harry Potter and the Prisoner of Azkaban",
+    "author": "J.K. Rowling"
   },
   {
-    "bookName": "Harry Potter and the Goblet of Fire",
-    "bookAuthor": "J.K. Rowling"
+    "title": "Harry Potter and the Goblet of Fire",
+    "author": "J.K. Rowling"
   },
   {
-    "bookName": "Harry Potter and the Order of the Phoenix",
-    "bookAuthor": "J.K. Rowling"
+    "title": "Harry Potter and the Order of the Phoenix",
+    "author": "J.K. Rowling"
   },
   {
-    "bookName": "Harry Potter and the Half-Blood Prince",
-    "bookAuthor": "J.K. Rowling"
+    "title": "Harry Potter and the Half-Blood Prince",
+    "author": "J.K. Rowling"
   },
   {
-    "bookName": "Harry Potter and the Deathly Hallows",
-    "bookAuthor": "J.K. Rowling"
+    "title": "Harry Potter and the Deathly Hallows",
+    "author": "J.K. Rowling"
   },
   {
-    "bookName": "The Adventures of Sherlock Holmes",
-    "bookAuthor": "Arthur Conan Doyle"
+    "title": "The Adventures of Sherlock Holmes",
+    "author": "Arthur Conan Doyle"
   }
 ]
