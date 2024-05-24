@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -24,33 +24,209 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
+export const EDIT_USER = gql`
+  mutation editUser(
+    $id: ID!
+    $username: String
+    $email: String
+    $password: String
+  ) {
+    editUser(id: $id, username: $username, email: $email, password: $password) {
       _id
-      thoughtText
-      thoughtAuthor
+      username
+      email
+    }
+  }
+`;
+
+export const ADD_BOOK = gql`
+  mutation addBook($bookText: String!) {
+    addBook(bookText: $bookText) {
+      _id
+      bookText
+      bookAuthor
       createdAt
-      comments {
+      reviews {
         _id
-        commentText
+        text
+      }
+      clubs {
+        _id
+        name
+      }
+      user {
+        _id
+        username
+      }
+      ratings {
+        _id
+        value
       }
     }
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+export const EDIT_BOOK = gql`
+  mutation editBook($id: ID!, $title: String, $author: String) {
+    editBook(id: $id, title: $title, author: $author) {
       _id
-      thoughtText
-      thoughtAuthor
+      title
+      author
+    }
+  }
+`;
+
+export const ADD_COMMENT = gql`
+  mutation addComment($bookId: ID!, $commentText: String!) {
+    addComment(bookId: $bookId, commentText: $commentText) {
+      _id
+      bookText
+      bookAuthor
       createdAt
       comments {
         _id
         commentText
         createdAt
       }
+    }
+  }
+`;
+export const ADD_REVIEW = gql`
+  mutation addReview($bookId: ID!, $reviewText: String!) {
+    addReview(bookId: $bookId, reviewText: $reviewText) {
+      _id
+      text
+      authorId
+      createdAt
+      bookId
+    }
+  }
+`;
+
+export const EDIT_REVIEW = gql`
+  mutation editReview($id: ID!, $reviewText: String) {
+    editReview(id: $id, reviewText: $reviewText) {
+      _id
+      text
+      authorId
+      createdAt
+      bookId
+    }
+  }
+`;
+
+export const ADD_CLUB = gql`
+  mutation addClub($name: String!) {
+    addClub(name: $name) {
+      _id
+      name
+      books {
+        _id
+        title
+      }
+      users {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+export const EDIT_CLUB = gql`
+  mutation editClub($id: ID!, $name: String) {
+    editClub(id: $id, name: $name) {
+      _id
+      name
+    }
+  }
+`;
+
+export const ADD_BOOK_TO_CLUB = gql`
+  mutation addBookToClub($clubId: ID!, $bookId: ID!) {
+    addBookToClub(clubId: $clubId, bookId: $bookId) {
+      _id
+      name
+      books {
+        _id
+        title
+      }
+      users {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+export const ADD_USER_TO_CLUB = gql`
+  mutation addUserToClub($clubId: ID!, $userId: ID!) {
+    addUserToClub(clubId: $clubId, userId: $userId) {
+      _id
+      name
+      books {
+        _id
+        title
+      }
+      users {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+export const ADD_RATING = gql`
+  mutation addRating($value: Int!, $userId: ID!, $clubId: ID!, $bookId: ID!) {
+    addRating(
+      value: $value
+      userId: $userId
+      clubId: $clubId
+      bookId: $bookId
+    ) {
+      _id
+      value
+      userId
+      clubId
+      bookId
+    }
+  }
+`;
+
+export const EDIT_RATING = gql`
+  mutation editRating($id: ID!, $value: Int) {
+    editRating(id: $id, value: $value) {
+      _id
+      value
+      userId
+      clubId
+      bookId
+    }
+  }
+`;
+
+export const REMOVE_BOOK = gql`
+  mutation removeBook($bookId: ID!) {
+    removeBook(bookId: $bookId) {
+      _id
+      title
+    }
+  }
+`;
+
+export const REMOVE_REVIEW = gql`
+  mutation removeReview($bookId: ID!, $reviewId: ID!) {
+    removeReview(bookId: $bookId, reviewId: $reviewId) {
+      _id
+      text
+    }
+  }
+`;
+
+export const REMOVE_RATING = gql`
+  mutation removeRating($ratingId: ID!) {
+    removeRating(ratingId: $ratingId) {
+      _id
+      value
     }
   }
 `;
