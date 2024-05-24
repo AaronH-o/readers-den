@@ -8,8 +8,8 @@ import { QUERY_BOOKS, QUERY_ME } from "../../utils/queries";
 import Auth from "../../utils/auth";
 
 const BookReviewForm = () => {
-  const [bookReviewText, setbookReviewText] = useState("");
-
+  const [bookReviewText, setBookReviewText] = useState("");
+  const [bookRating, setBookRating] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addBook, { error }] = useMutation(ADD_BOOK, {
@@ -29,6 +29,7 @@ const BookReviewForm = () => {
       });
 
       setBookReviewText("");
+      setBookRating("");
     } catch (err) {
       console.error(err);
     }
@@ -39,8 +40,10 @@ const BookReviewForm = () => {
 
     if (name === "bookReviewText" && value.length <= 280) {
       setBookReviewText(value);
-      setBookRating(value);
+
       setCharacterCount(value.length);
+    } else if (name === "bookRating") {
+      setBookRating(value);
     }
   };
 
