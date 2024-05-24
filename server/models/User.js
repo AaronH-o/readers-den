@@ -22,7 +22,13 @@ const userSchema = new Schema({
   books: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'BookReview',
+      ref: 'Book',
+    },
+  ],
+  clubs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Club',
     },
   ],
 });
