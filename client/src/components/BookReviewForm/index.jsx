@@ -1,25 +1,19 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 
-import { ADD_BOOK } from '../../utils/mutations';
-import { QUERY_BOOKS, QUERY_ME } from '../../utils/queries';
+import { ADD_BOOK } from "../../utils/mutations";
+import { QUERY_BOOKS, QUERY_ME } from "../../utils/queries";
 
-import Auth from '../../utils/auth';
+import Auth from "../../utils/auth";
 
 const BookReviewForm = () => {
-  const [bookReviewText, setbookReviewText] = useState('');
+  const [bookReviewText, setbookReviewText] = useState("");
 
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addBook, { error }] = useMutation
-  (ADD_BOOK, {
-    refetchQueries: [
-      QUERY_BOOKS,
-      'getbOOKS',
-      QUERY_ME,
-      'me'
-    ]
+  const [addBook, { error }] = useMutation(ADD_BOOK, {
+    refetchQueries: [QUERY_BOOKS, "getbOOKS", QUERY_ME, "me"],
   });
 
   const handleFormSubmit = async (event) => {
@@ -34,7 +28,7 @@ const BookReviewForm = () => {
         },
       });
 
-      setBookReviewText('');
+      setBookReviewText("");
     } catch (err) {
       console.error(err);
     }
@@ -43,7 +37,7 @@ const BookReviewForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'bookReviewText' && value.length <= 280) {
+    if (name === "bookReviewText" && value.length <= 280) {
       setBookReviewText(value);
       setBookRating(value);
       setCharacterCount(value.length);
@@ -58,7 +52,7 @@ const BookReviewForm = () => {
         <>
           <p
             className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
+              characterCount === 280 || error ? "text-danger" : ""
             }`}
           >
             Character Count: {characterCount}/280
@@ -73,7 +67,7 @@ const BookReviewForm = () => {
                 placeholder="Here's a new review..."
                 value={bookReviewText}
                 className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
             </div>
@@ -92,7 +86,7 @@ const BookReviewForm = () => {
         </>
       ) : (
         <p>
-          You need to be logged in to review. Please{' '}
+          You need to be logged in to review. Please{" "}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
