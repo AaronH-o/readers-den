@@ -45,6 +45,25 @@ db.once("open", async () => {
           },
         }
       );
+
+    }for (let i = 0; i < reviewSeeds.length; i++) {
+      const { _id, books, users } = await Review.create(reviewSeeds[i]);
+      await Book.updateMany(
+        { _id: { $in: books } },
+        {
+          $addToSet: {
+            clubs: _id,
+          },
+        }
+      );
+      await User.updateMany(
+        { _id: { $in: users } },
+        {
+          $addToSet: {
+            clubs: _id,
+          },
+        }
+      );
     }
 
     
