@@ -26,6 +26,27 @@ db.once("open", async () => {
         }
       );
     }
+
+    for (let i = 0; i < clubSeeds.length; i++) {
+      const { _id, books, users } = await Club.create(clubSeeds[i]);
+      await Book.updateMany(
+        { _id: { $in: books } },
+        {
+          $addToSet: {
+            clubs: _id,
+          },
+        }
+      );
+      await User.updateMany(
+        { _id: { $in: users } },
+        {
+          $addToSet: {
+            clubs: _id,
+          },
+        }
+      );
+    }
+
     
   } catch (err) {
     console.error(err);
