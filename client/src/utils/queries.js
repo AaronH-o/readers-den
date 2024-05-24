@@ -9,9 +9,13 @@ export const QUERY_USER = gql`
       email
       books {
         _id
-        bookAuthor
-        bookReviewText
+        title
+        author
         createdAt
+      }
+      clubs {
+        _id
+        name
       }
     }
   }
@@ -22,9 +26,13 @@ export const QUERY_BOOKS = gql`
   query getBOOKS {
     books {
       _id
-      bookAuthor
-      bookReviewText
-      bookReviewAuthor
+      title
+      author
+      reviews {
+        _id
+        text
+        userId
+      }
       createdAt
     }
   }
@@ -35,16 +43,15 @@ export const QUERY_SINGLE_BOOK = gql`
   query getSingleBook($bookId: ID!) {
     book(bookId: $bookId) {
       _id
-      bookAuthor
-      bookReviewText
-      bookReviewAuthor
-      createdAt
-      comments {
+      title
+      author
+      reviews {
         _id
-        commentText
-        commentAuthor
+        text
+        userId
         createdAt
       }
+      createdAt
     }
   }
 `;
@@ -58,9 +65,8 @@ export const QUERY_ME = gql`
       email
       books {
         _id
-        bookAuthor
-        bookReviewText
-        bookReviewAuthor
+        title
+        author
         createdAt
       }
     }
@@ -72,8 +78,7 @@ export const QUERY_CLUBS = gql`
   query getCLUBS {
     clubs {
       _id
-      bookId
-      bookAuthor
+      name
       createdAt
     }
   }
@@ -84,10 +89,16 @@ export const QUERY_SINGLE_CLUB = gql`
   query getSingleClub($clubId: ID!) {
     club(clubId: $clubId) {
       _id
-      bookId
-      bookAuthor
-      bookReviewText
-      bookReviewAuthor
+      name
+      books {
+        _id
+        title
+        author
+      }
+      users {
+        _id
+        username
+      }
       createdAt
     }
   }
