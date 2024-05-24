@@ -47,7 +47,7 @@ const SingleBook = () => {
         <CommentList comments={book.comments} />
       </div>
       <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        <CommentForm thoughtId={thought._id} />
+        <CommentForm bookId={book._id} />
       </div>
     </div>
   );
