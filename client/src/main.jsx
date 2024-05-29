@@ -1,13 +1,16 @@
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from './App.jsx';
-import Home from './pages/Home';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-import SingleBook from './pages/SingleBook.jsx';
-import Profile from './pages/Profile';
-import ErrorPage from './pages/ErrorPage';
+import { ChakraProvider } from "@chakra-ui/react";
+
+import App from "./App";
+// import App from "./App.jsx";
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import SingleBook from "./pages/SingleBook.jsx";
+import Profile from "./pages/Profile";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -17,27 +20,34 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
-      }, {
-        path: '/login',
-        element: <Login />
-      }, {
-        path: '/signup',
-        element: <Signup />
-      }, {
-        path: '/profiles/:username',
-        element: <Profile />
-      }, {
-        path: '/me',
-        element: <Profile />
-      }, {
-        path: '/books/:bookId',
-        element: <SingleBook />
-      }
-    ]
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/profiles/:username",
+        element: <Profile />,
+      },
+      {
+        path: "/me",
+        element: <Profile />,
+      },
+      {
+        path: "/books/:bookId",
+        element: <SingleBook />,
+      },
+    ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <ChakraProvider>
+    <RouterProvider router={router} />
+  </ChakraProvider>
+);

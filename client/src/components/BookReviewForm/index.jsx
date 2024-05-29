@@ -1,6 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
+import {
+  Box,
+  Button,
+  Input,
+  Textarea,
+  Text,
+  FormControl,
+  FormLabel,
+  Heading,
+  Flex,
+  Container,
+  Alert,
+  AlertIcon,
+  Image,
+} from "@chakra-ui/react";
 
 import { ADD_BOOK } from "../../utils/mutations";
 import { QUERY_BOOKS, QUERY_ME } from "../../utils/queries";
@@ -8,28 +23,38 @@ import { QUERY_BOOKS, QUERY_ME } from "../../utils/queries";
 import Auth from "../../utils/auth";
 
 const BookReviewForm = () => {
-  const [bookReviewText, setBookReviewText] = useState("");
-  const [bookRating, setBookRating] = useState("");
+  const [formState, setFormState] = useState({
+    title: "FOURTH WING",
+    author: "Rebecca Yarros",
+    image:
+      "https://storage.googleapis.com/du-prd/books/images/9781649374172.jpg",
+    bookReviewText: "",
+  });
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addBook, { error }] = useMutation(ADD_BOOK, {
-    refetchQueries: [QUERY_BOOKS, "getbOOKS", QUERY_ME, "me"],
+  const [addBook, { error, data }] = useMutation(ADD_BOOK, {
+    refetchQueries: [QUERY_BOOKS, "getBooks", QUERY_ME, "me"],
   });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { data } = await addBook({
+      await addBook({
         variables: {
-          bookReviewText,
-          bookRating,
+          ...formState,
           bookReviewAuthor: Auth.getProfile().data.username,
         },
       });
 
-      setBookReviewText("");
-      setBookRating("");
+      setFormState({
+        title: "FOURTH WING",
+        author: "Rebecca Yarros",
+        image:
+          "https://storage.googleapis.com/du-prd/books/images/9781649374172.jpg",
+        bookReviewText: "",
+      });
+      setCharacterCount(0);
     } catch (err) {
       console.error(err);
     }
@@ -39,61 +64,86 @@ const BookReviewForm = () => {
     const { name, value } = event.target;
 
     if (name === "bookReviewText" && value.length <= 280) {
-      setBookReviewText(value);
-
+      setFormState({
+        ...formState,
+        [name]: value,
+      });
       setCharacterCount(value.length);
-    } else if (name === "bookRating") {
-      setBookRating(value);
+    } else {
+      setFormState({
+        ...formState,
+        [name]: value,
+      });
     }
   };
 
   return (
-    <div>
-      <h3>Read anything lately?</h3>
-
-      {Auth.loggedIn() ? (
-        <>
-          <p
-            className={`m-0 ${
-              characterCount === 280 || error ? "text-danger" : ""
-            }`}
-          >
-            Character Count: {characterCount}/280
-          </p>
-          <form
-            className="flex-row justify-center justify-space-between-md align-center"
-            onSubmit={handleFormSubmit}
-          >
-            <div className="col-12 col-lg-9">
-              <textarea
-                name="bookReviewText"
-                placeholder="Here's a new review..."
-                value={bookReviewText}
-                className="form-input w-100"
-                style={{ lineHeight: "1.5", resize: "vertical" }}
-                onChange={handleChange}
-              ></textarea>
-            </div>
-
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
+    <Container maxW="container.md">
+      <Flex direction="column" align="center" justify="center" minH="100vh">
+        <Box w="100%" p={6} boxShadow="md" borderRadius="md">
+          <Heading as="h4" size="lg" mb={6} textAlign="center">
+            Add a Book Review
+          </Heading>
+          <Image src={formState.image} alt={formState.title} mb={4} />
+          {data ? (
+            <Text>
+              Success! You may now head{" "}
+              <Link to="/">back to the homepage.</Link>
+            </Text>
+          ) : (
+            <form onSubmit={handleFormSubmit}>
+              <FormControl id="title" isRequired mb={4}>
+                <FormLabel>Title</FormLabel>
+                <Input
+                  placeholder="Book title"
+                  name="title"
+                  type="text"
+                  value={formState.title}
+                  readOnly
+                />
+              </FormControl>
+              <FormControl id="author" isRequired mb={4}>
+                <FormLabel>Author</FormLabel>
+                <Input
+                  placeholder="Book author"
+                  name="author"
+                  type="text"
+                  value={formState.author}
+                  readOnly
+                />
+              </FormControl>
+              <FormControl id="bookReviewText" isRequired mb={6}>
+                <FormLabel>Review</FormLabel>
+                <Textarea
+                  placeholder="Here's a new review..."
+                  name="bookReviewText"
+                  value={formState.bookReviewText}
+                  onChange={handleChange}
+                  mb={4}
+                />
+                <Text
+                  mb={2}
+                  color={
+                    characterCount === 280 || error ? "red.500" : "gray.600"
+                  }
+                >
+                  Character Count: {characterCount}/280
+                </Text>
+              </FormControl>
+              <Button colorScheme="blue" width="100%" type="submit">
                 Add a review
-              </button>
-            </div>
-            {error && (
-              <div className="col-12 my-3 bg-danger text-white p-3">
-                {error.message}
-              </div>
-            )}
-          </form>
-        </>
-      ) : (
-        <p>
-          You need to be logged in to review. Please{" "}
-          <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
-        </p>
-      )}
-    </div>
+              </Button>
+            </form>
+          )}
+          {error && (
+            <Alert status="error" mt={4}>
+              <AlertIcon />
+              {error.message}
+            </Alert>
+          )}
+        </Box>
+      </Flex>
+    </Container>
   );
 };
 
