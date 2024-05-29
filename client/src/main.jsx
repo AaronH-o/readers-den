@@ -2,15 +2,23 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { ChakraProvider } from "@chakra-ui/react";
-
+import { Navigate } from "react-router-dom";
 import App from "./App";
-// import App from "./App.jsx";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import SingleBook from "./pages/SingleBook.jsx";
 import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
+import Clubs from "./pages/Clubs";
+import CreateClub from "./pages/CreateClub";
+import JoinClub from "./pages/JoinClub";
+import MyBookshelf from "./pages/MyBookshelf";
+import Auth from "./utils/auth";
+
+const ProtectedRoute = ({ element }) => {
+  return Auth.loggedIn() ? element : <Navigate to="/login" />;
+};
 
 const router = createBrowserRouter([
   {
@@ -32,15 +40,31 @@ const router = createBrowserRouter([
       },
       {
         path: "/profiles/:username",
-        element: <Profile />,
+        element: <ProtectedRoute element={<Profile />} />,
       },
       {
         path: "/me",
-        element: <Profile />,
+        element: <ProtectedRoute element={<Profile />} />,
       },
       {
         path: "/books/:bookId",
-        element: <SingleBook />,
+        element: <ProtectedRoute element={<SingleBook />} />,
+      },
+      {
+        path: "/clubs",
+        element: <ProtectedRoute element={<Clubs />} />,
+      },
+      {
+        path: "/create-club",
+        element: <ProtectedRoute element={<CreateClub />} />,
+      },
+      {
+        path: "/join-club",
+        element: <ProtectedRoute element={<JoinClub />} />,
+      },
+      {
+        path: "/my-bookshelf",
+        element: <ProtectedRoute element={<MyBookshelf />} />,
       },
     ],
   },
