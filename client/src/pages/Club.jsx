@@ -1,11 +1,12 @@
-import { Navigate, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { Navigate, useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { Box, Flex, Text, Container, Spinner } from "@chakra-ui/react";
 
-import BookList from '../components/BookList';
+import BookList from "../components/BookList";
+import BookReviewForm from "../components/BookReviewForm";
 
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
-
-import Auth from '../utils/auth';
+import { QUERY_USER, QUERY_ME } from "../utils/queries";
+import Auth from "../utils/auth";
 
 const Club = () => {
   const { username: userParam } = useParams();
@@ -15,49 +16,57 @@ const Club = () => {
   });
 
   const user = data?.me || data?.user || {};
-  // navigate to personal profile page if username is yours
+
+  // Navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/me" />;
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Flex justify="center" mt={4}>
+        <Spinner size="xl" />
+      </Flex>
+    );
   }
 
   if (!user?.username) {
     return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
+      <Container>
+        <Text fontSize="lg" mt={4}>
+          You need to be logged in to see this. Use the navigation links above
+          to sign up or log in!
+        </Text>
+      </Container>
     );
   }
 
   return (
-    <div>
-      <div className="flex-row justify-center mb-3">
-        {/* <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2> */}
-
-        <div className="col-12 col-md-10 mb-5">
+    <Container maxW="container.xl" p={4}>
+      <Flex direction="column" align="center" justify="center">
+        <Box w="100%" maxW="800px" mb={5}>
           <BookList
             books={user.books}
             title={`${user.username}'s reviews...`}
             showTitle={false}
             showUsername={false}
           />
-        </div>
+        </Box>
         {!userParam && (
-          <div
-            className="col-12 col-md-10 mb-3 p-3"
-            style={{ border: '1px dotted #1a1a1a' }}
+          <Box
+            w="100%"
+            maxW="800px"
+            mb={3}
+            p={3}
+            borderWidth={1}
+            borderRadius="lg"
+            borderColor="gray.300"
           >
             <BookReviewForm />
-          </div>
+          </Box>
         )}
-      </div>
-    </div>
+      </Flex>
+    </Container>
   );
 };
 
