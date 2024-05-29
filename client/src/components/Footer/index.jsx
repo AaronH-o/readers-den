@@ -1,33 +1,32 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
   return (
-    <footer className="w-100 mt-auto bg-secondary p-4">
-      <div className="container text-center mb-5">
-        {location.pathname !== '/' && (
-          <button
-            className="btn btn-dark mb-3"
+    <Box as="footer" w="100%" mt="auto" bg="teal.500" p={4} color="white">
+      <Flex direction="column" align="center">
+        {location.pathname !== "/" && (
+          <Button
+            colorScheme="teal"
+            variant="outline"
+            mb={3}
             onClick={() => navigate(-1)}
           >
             &larr; Go Back
-          </button>
+          </Button>
         )}
-        <h4>
-          Made with{' '}
-          <span
-            className="emoji"
-            role="img"
-            aria-label="heart"
-            aria-hidden="false"
-          >
+        <Text textAlign="center">
+          Made with{" "}
+          <span role="img" aria-label="heart" aria-hidden="false">
             ❤️
-          </span>{' '}
+          </span>{" "}
           by Meera, Aaron, and Olivia.
-        </h4>
-      </div>
-    </footer>
+        </Text>
+      </Flex>
+    </Box>
   );
 };
 

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
 import {
   Box,
   Button,
@@ -14,43 +13,31 @@ import {
   Container,
   Alert,
   AlertIcon,
+  Spacer,
 } from "@chakra-ui/react";
-
+import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
 
-  // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    setFormState({ ...formState, [name]: value });
   };
 
-  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
-      const { data } = await login({
-        variables: { ...formState },
-      });
-
+      const { data } = await login({ variables: { ...formState } });
       Auth.login(data.login.token);
+      navigate("/clubs");
     } catch (e) {
       console.error(e);
     }
-
-    // clear form values
-    setFormState({
-      email: "",
-      password: "",
-    });
+    setFormState({ email: "", password: "" });
   };
 
   return (
@@ -87,15 +74,26 @@ const Login = () => {
                   onChange={handleChange}
                 />
               </FormControl>
-              <Button colorScheme="blue" width="100%" type="submit">
+              <Button colorScheme="blue" width="100%" type="submit" mb={4}>
                 Submit
               </Button>
+              <Flex justify="center">
+                <Text mr={2}>Dont have an account?</Text>
+                <Button
+                  as={Link}
+                  to="/signup"
+                  colorScheme="teal"
+                  variant="link"
+                >
+                  {" "}
+                  Sign Up Here
+                </Button>
+              </Flex>
             </form>
           )}
           {error && (
             <Alert status="error" mt={4}>
-              <AlertIcon />
-              {error.message}
+              <AlertIcon /> {error.message}
             </Alert>
           )}
         </Box>

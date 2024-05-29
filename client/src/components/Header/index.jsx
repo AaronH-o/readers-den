@@ -1,44 +1,38 @@
-import { Link } from 'react-router-dom';
-
-import Auth from '../../utils/auth';
+// import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { Box, Flex, Heading, Link, Spacer, Button } from "@chakra-ui/react";
+import Auth from "../../utils/auth";
 
 const Header = () => {
-  const logout = (event) => {
-    event.preventDefault();
+  const logout = () => {
     Auth.logout();
   };
+
   return (
-    <header className="bg-primary text-light mb-4 py-3 flex-row align-center">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
-        <div>
-          <Link className="text-light" to="/">
-            <h1 className="m-0">Reader's Den</h1>
+    <Box bg="teal.500" p={4} color="white">
+      <Flex align="center">
+        <Heading as="h1" size="lg">
+          <Link as={RouterLink} to="/">
+            Readers Den
           </Link>
-          <p className="m-0">“A reader lives a thousand lives..." -George R.R Martin</p>
-        </div>
-        <div>
-          {Auth.loggedIn() ? (
-            <>
-              <Link className="btn btn-lg btn-info m-2" to="/me">
-                {Auth.getProfile().data.username}'s profile
-              </Link>
-              <button className="btn btn-lg btn-light m-2" onClick={logout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link className="btn btn-lg btn-info m-2" to="/login">
-                Login
-              </Link>
-              <Link className="btn btn-lg btn-light m-2" to="/signup">
-                Signup
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
-    </header>
+        </Heading>
+        <Spacer />
+        {Auth.loggedIn() ? (
+          <Button onClick={logout} colorScheme="teal" variant="outline">
+            Logout
+          </Button>
+        ) : (
+          <Flex>
+            <Link as={RouterLink} to="/login" mr={4}>
+              Login
+            </Link>
+            <Link as={RouterLink} to="/signup">
+              Signup
+            </Link>
+          </Flex>
+        )}
+      </Flex>
+    </Box>
   );
 };
 
