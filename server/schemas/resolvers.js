@@ -15,10 +15,10 @@ const resolvers = {
     book: async (parent, { id }) => {
       return Book.findOne({ id }).populate();
     },
-    club: async () => {
+    clubs: async () => {
       return Club.find().populate();
     },
-    clubs: async (parent, { id }) => {
+    club: async (parent, { id }) => {
       return Club.findOne({ id }).populate();
     },
     me: async (parent, args, context) => {
