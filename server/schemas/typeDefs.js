@@ -31,7 +31,7 @@ const typeDefs = `
     _id: ID
     name: String
     books: [Book]
-    users: [User]!
+    users: [User]
   }
 
   type Rating {
