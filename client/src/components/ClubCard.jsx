@@ -19,26 +19,13 @@ const ClubCard = ({ name, image }) => {
         <Text fontWeight="bold" fontSize="lg">
           {name}
         </Text>
-        <Button
-          colorScheme="blue"
-          onClick={() => navigate("/create-club")}
-          size="sm"
-        >
-          Create Club
-        </Button>
+
         <Button
           colorScheme="green"
           onClick={() => navigate("/join-club")}
           size="sm"
         >
           Join Club
-        </Button>
-        <Button
-          colorScheme="teal"
-          onClick={() => navigate("/my-bookshelf")}
-          size="sm"
-        >
-          My Bookshelf
         </Button>
       </VStack>
     </Box>
