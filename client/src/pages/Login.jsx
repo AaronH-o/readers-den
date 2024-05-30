@@ -13,7 +13,6 @@ import {
   Container,
   Alert,
   AlertIcon,
-  Spacer,
 } from "@chakra-ui/react";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -30,14 +29,17 @@ const Login = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log("Form submitted with state:", formState);
+
     try {
       const { data } = await login({ variables: { ...formState } });
+      console.log("Login mutation data:", data);
       Auth.login(data.login.token);
+      console.log("Token stored and user logged in, navigating to /clubs");
       navigate("/clubs");
     } catch (e) {
-      console.error(e);
+      console.error("Login error:", e);
     }
-    setFormState({ email: "", password: "" });
   };
 
   return (
@@ -48,7 +50,7 @@ const Login = () => {
             Login
           </Heading>
           {data ? (
-            <Text>
+            <Text textAlign="center">
               Success! You may now head{" "}
               <Link to="/">back to the homepage.</Link>
             </Text>
@@ -85,7 +87,6 @@ const Login = () => {
                   colorScheme="teal"
                   variant="link"
                 >
-                  {" "}
                   Sign Up Here
                 </Button>
               </Flex>
