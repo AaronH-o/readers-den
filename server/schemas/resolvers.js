@@ -55,17 +55,33 @@ const resolvers = {
     addBook: async (parent, { title, author }) => {
       const user = await Book.create({ title, author });
     },
-    addReview: async (parent, { bookId, reviewText }) => {
-      const user = await Review.create({ bookId, reviewText });
+    addReview: async (parent, { bookId, reviewText, userId }) => {
+      const user = await Review.create({ bookId, reviewText, userId });
     },
     addClub: async (parent, { name }) => {
       const user = await Club.create({ name });
     },
-    addBookToClub: async (parent, { clubId, bookId}) => {
-      
+    addBookToClub: async (parent, { clubId, bookId}, context) => {
+      if (context.user) {
+        await Club.findOneAndUpdate(
+          { _id: clubId},
+          { $addToSet: { books: bookId}}
+        )
+        return;
+      }
+      throw AuthenticationError;
+      ('You need to be logged in!');
     },
-    addUserToClub: async (parent, { clubId, bookId}) => {
-      
+    addUserToClub: async (parent, { clubId, userId}, context) => {
+      if (context.user) {
+        await Club.findOneAndUpdate(
+          { _id: clubId},
+          { $addToSet: { users: userId}}
+        )
+        return;
+      }
+      throw AuthenticationError;
+      ('You need to be logged in!');
     },
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
