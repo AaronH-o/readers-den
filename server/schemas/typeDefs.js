@@ -12,6 +12,7 @@ const typeDefs = `
     _id: ID
     title: String
     author: String
+    image: String
     createdAt: String
     reviews: [Review]
     clubs:[Club]
