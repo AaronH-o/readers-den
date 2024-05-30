@@ -14,7 +14,11 @@ const bookSchema = new Schema({
     minlength: 1,
     maxlength: 280,
     trim: true,
-    },
+  },
+  image: {
+    type: String,
+    trime: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
