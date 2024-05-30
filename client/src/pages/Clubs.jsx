@@ -1,6 +1,14 @@
 // import React from "react";
-import { Box, Flex, Heading, Container, SimpleGrid } from "@chakra-ui/react";
-import ClubCard from "../components/ClubCard"; // Adjust the import path if needed
+import {
+  Box,
+  Flex,
+  Heading,
+  Container,
+  SimpleGrid,
+  Button,
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import ClubCard from "../components/ClubCard";
 
 const clubData = [
   {
@@ -31,12 +39,35 @@ const clubData = [
 
 const Clubs = () => {
   return (
-    <Container maxW="container.md">
-      <Flex direction="column" align="center" justify="center" minH="100vh">
-        <Box w="100%" p={6} boxShadow="md" borderRadius="md" textAlign="center">
-          <Heading as="h1" size="2xl" mb={6}>
+    <Container maxW="container.lg">
+      <Box as="nav" w="100%" p={4} mb={6} bg="teal.500" color="white">
+        <Flex justify="space-between" align="center">
+          <Heading as="h1" size="lg">
             Clubs
           </Heading>
+          <Flex>
+            <Button
+              as={Link}
+              to="/create-club"
+              mr={4}
+              colorScheme="teal"
+              variant="outline"
+            >
+              Create Club
+            </Button>
+            <Button
+              as={Link}
+              to="/my-bookshelf"
+              colorScheme="teal"
+              variant="outline"
+            >
+              My Bookshelf
+            </Button>
+          </Flex>
+        </Flex>
+      </Box>
+      <Flex direction="column" align="center" justify="center" minH="100vh">
+        <Box w="100%" p={6} boxShadow="md" borderRadius="md" textAlign="center">
           <SimpleGrid columns={[1, null, 2]} spacing={6}>
             {clubData.map((club, index) => (
               <ClubCard key={index} name={club.name} image={club.image} />
