@@ -1,19 +1,19 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import { ChakraProvider } from "@chakra-ui/react";
 import { Navigate } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import SingleBook from "./pages/SingleBook.jsx";
+import SingleBook from "./pages/SingleBook";
 import Profile from "./pages/Profile";
 import ErrorPage from "./pages/ErrorPage";
 import Clubs from "./pages/Clubs";
 import CreateClub from "./pages/CreateClub";
 import JoinClub from "./pages/JoinClub";
 import MyBookshelf from "./pages/MyBookshelf";
+import Bookshelf from "./pages/Bookshelf";
 import Auth from "./utils/auth";
 
 const ProtectedRoute = ({ element }) => {
@@ -65,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/my-bookshelf",
         element: <ProtectedRoute element={<MyBookshelf />} />,
+      },
+      {
+        path: "/bookshelf",
+        element: <ProtectedRoute element={<Bookshelf />} />,
       },
     ],
   },
