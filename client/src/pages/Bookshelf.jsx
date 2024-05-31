@@ -4,12 +4,14 @@ import BookCard from "../components/BookCard";
 
 const bookData = [
   {
+    _id: "1",
     title: "Don Quixote",
     author: "Miguel de Cervantes",
     image: "https://covers.openlibrary.org/b/id/13538218-L.jpg",
     club: "Classic Literature Club",
   },
   {
+    _id: "2",
     title: "A Tale of Two Cities",
     author: "Charles Dickens",
     image:
@@ -17,6 +19,7 @@ const bookData = [
     club: "Classic Literature Club",
   },
   {
+    _id: "3",
     title: "The Lord of the Rings",
     author: "J.R.R. Tolkien",
     image:
@@ -24,6 +27,7 @@ const bookData = [
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "4",
     title: "The Little Prince",
     author: "Antoine de Saint-Exupéry",
     image:
@@ -31,6 +35,7 @@ const bookData = [
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "5",
     title: "Harry Potter and the Sorcerer's Stone",
     author: "J.K. Rowling",
     image:
@@ -38,14 +43,15 @@ const bookData = [
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "6",
     title: "And Then There Were None",
     author: "Agatha Christie",
     image:
       "https://m.media-amazon.com/images/I/71EXMl7hbBL._AC_UF1000,1000_QL80_.jpg",
     club: "Mystery & Thriller Club",
   },
-
   {
+    _id: "7",
     title: "The Hobbit",
     author: "J.R.R. Tolkien",
     image:
@@ -53,6 +59,7 @@ const bookData = [
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "8",
     title: "Dream of the Red Chamber",
     author: "Cao Xueqin",
     image:
@@ -60,18 +67,21 @@ const bookData = [
     club: "Classic Literature Club",
   },
   {
+    _id: "9",
     title: "The Lion, the Witch and the Wardrobe",
     author: "C.S. Lewis",
     image: "https://m.media-amazon.com/images/I/51ucYQIg73L._SX342_SY445_.jpg",
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "10",
     title: "She: A History of Adventure",
     author: "H. Rider Haggard",
     image: "https://m.media-amazon.com/images/I/51-Kq1G4Y9L._SL500_.jpg",
     club: "Modern Classics Club",
   },
   {
+    _id: "11",
     title: "The Catcher in the Rye",
     author: "J.D. Salinger",
     image:
@@ -79,6 +89,7 @@ const bookData = [
     club: "Modern Classics Club",
   },
   {
+    _id: "12",
     title: "The Da Vinci Code",
     author: "Dan Brown",
     image:
@@ -86,48 +97,56 @@ const bookData = [
     club: "Mystery & Thriller Club",
   },
   {
+    _id: "13",
     title: "The Alchemist",
     author: "Paulo Coelho",
     image: "https://covers.openlibrary.org/b/id/45762-L.jpg",
     club: "Modern Classics Club",
   },
   {
+    _id: "14",
     title: "Harry Potter and the Chamber of Secrets",
     author: "J.K. Rowling",
     image: "https://covers.openlibrary.org/b/id/14630506-L.jpg",
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "15",
     title: "Harry Potter and the Prisoner of Azkaban",
     author: "J.K. Rowling",
     image: "https://m.media-amazon.com/images/I/A1D9WdGRYzL._SL1500_.jpg",
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "16",
     title: "Harry Potter and the Goblet of Fire",
     author: "J.K. Rowling",
     image: "https://m.media-amazon.com/images/I/81aTxTMB33L._SL1200_.jpg",
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "17",
     title: "Harry Potter and the Order of the Phoenix",
     author: "J.K. Rowling",
     image: "https://m.media-amazon.com/images/I/71pgI2ou5oL._SL1200_.jpg",
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "18",
     title: "Harry Potter and the Half-Blood Prince",
     author: "J.K. Rowling",
     image: "https://m.media-amazon.com/images/I/61sXBXmAWML._SL1000_.jpg",
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "19",
     title: "Harry Potter and the Deathly Hallows",
     author: "J.K. Rowling",
     image: "https://m.media-amazon.com/images/I/81fKAGD2LyL._SL1500_.jpg",
     club: "Fantasy Lovers Club",
   },
   {
+    _id: "20",
     title: "The Adventures of Sherlock Holmes",
     author: "Arthur Conan Doyle",
     image: "https://m.media-amazon.com/images/I/61W8vD3LBRL._SL1333_.jpg",
@@ -168,6 +187,7 @@ const Bookshelf = () => {
                     title={book.title}
                     author={book.author}
                     image={book.image}
+                    bookId={book._id}
                   />
                 ))}
               </SimpleGrid>

@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<Profile />} />,
       },
       {
-        path: "/books/:bookId",
+        path: "/books/:title",
         element: <ProtectedRoute element={<SingleBook />} />,
       },
       {

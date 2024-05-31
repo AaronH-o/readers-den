@@ -1,31 +1,39 @@
-const { User, Book, Review, Club, Auth } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+// const { AuthenticationError } = require("apollo-server-express");
+const { User, Book, Club } = require("../models");
+const { signToken } = require("../utils/auth");
+const { GraphQLScalarType } = require("graphql");
+const { Kind } = require("graphql/language");
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate();
+      return User.find().populate("books").populate("clubs");
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate();
+      return User.findOne({ username }).populate("books").populate("clubs");
     },
     books: async () => {
-      return Book.find().populate();
+      return Book.find().populate("comments");
     },
-    book: async (parent, { id }) => {
-      return Book.findOne({ id }).populate();
+    book: async (parent, { bookId }) => {
+      return Book.findOne({ _id: bookId }).populate("comments");
+    },
+    bookByTitle: async (parent, { title }) => {
+      return Book.findOne({ title }).populate("comments");
     },
     clubs: async () => {
-      return Club.find().populate();
+      return Club.find().populate("books").populate("users");
     },
-    club: async (parent, { id }) => {
-      return Club.findOne({ id }).populate();
+    club: async (parent, { clubId }) => {
+      return Club.findOne({ _id: clubId }).populate("books").populate("users");
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate();
+        return User.findOne({ _id: context.user._id })
+          .populate("books")
+          .populate("clubs");
       }
-      throw AuthenticationError;
+      throw new AuthenticationError("You need to be logged in!");
     },
     reviews: async () => {
       return Review.find().populate();
@@ -45,17 +53,16 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw AuthenticationError;
+        throw new AuthenticationError("No user found with this email address");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError;
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
-
       return { token, user };
     },
     addBook: async (parent, { title, author }) => {
@@ -90,18 +97,46 @@ const resolvers = {
       }
       throw AuthenticationError;
       ('You need to be logged in!');
+    }
+    addRating: async (parent, { value, userId, bookId }) => {
+      const rating = await Rating.create({ value, userId, bookId });
+      return rating;
     },
-    removeBook: async (parent, { bookId }, context) => {
+    removeBook: async (parent, { bookId }) => {
+      const book = await Book.findOneAndDelete({ _id: bookId });
+      return book;
+    },
+    removeReview: async (parent, { bookId, reviewId }) => {
+      const book = await Book.findOneAndUpdate(
+        { _id: bookId },
+        {
+          $pull: {
+            reviews: {
+              _id: reviewId,
+            },
+          },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+      return book;
+    },
+    removeRating: async (parent, { ratingId }) => {
+      const rating = await Rating.findOneAndDelete({ _id: ratingId });
+      return rating;
+    },
+    addToBookshelf: async (parent, { bookId }, context) => {
       if (context.user) {
-        return Book.findOneAndUpdate(
-          { _id: bookId },
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { books: bookId } },
           { new: true }
-        );
+        ).populate("books");
+        return updatedUser;
       }
-      throw AuthenticationError;
-    },
-    removeReview: async (parent, { bookId, reviewId }, context) => {
-      
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

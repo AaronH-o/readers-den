@@ -40,22 +40,25 @@ export const QUERY_BOOKS = gql`
 
 //single book
 export const QUERY_SINGLE_BOOK = gql`
-  query getSingleBook($bookId: ID!) {
-    book(bookId: $bookId) {
+  query getsingleBook($bookId: ID!) {
+    book(bookId: "1") {
       _id
       title
       author
-      reviews {
-        _id
-        text
-        userId
-        createdAt
-      }
+      image
+      review
+      rating
+      bookReviewAuthor
       createdAt
+      comments {
+        _id
+        commentText
+        createdAt
+        username
+      }
     }
   }
 `;
-
 //me
 export const QUERY_ME = gql`
   query me {
@@ -100,6 +103,26 @@ export const QUERY_SINGLE_CLUB = gql`
         username
       }
       createdAt
+    }
+  }
+`;
+export const QUERY_BOOK_BY_TITLE = gql`
+  query bookByTitle($title: String!) {
+    bookByTitle(title: $title) {
+      _id
+      title
+      author
+      image
+      review
+      rating
+      createdAt
+      bookReviewAuthor
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+      }
     }
   }
 `;

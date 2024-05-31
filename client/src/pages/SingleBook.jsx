@@ -1,55 +1,116 @@
-// Import the `useParams()` hook
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-
-import CommentList from '../components/CommentList';
-import CommentForm from '../components/CommentForm';
-
-import { QUERY_SINGLE_BOOK } from '../utils/queries';
+// import React from "react";
+import { useParams } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  Box,
+  Image,
+  Text,
+  VStack,
+  Heading,
+  Container,
+  Flex,
+  Spinner,
+  Button,
+} from "@chakra-ui/react";
+import { QUERY_BOOK_BY_TITLE } from "../utils/queries";
+import { ADD_TO_BOOKSHELF } from "../utils/mutations";
+import CommentList from "../components/CommentList";
+import CommentForm from "../components/CommentForm";
 
 const SingleBook = () => {
-  // Use `useParams()` to retrieve value of the route parameter `:profileId`
-  const { bookId } = useParams();
+  const { title } = useParams(); // Assume the URL contains the book title
 
-  const { loading, data } = useQuery(QUERY_SINGLE_BOOK, {
-    // pass URL parameter
-    variables: { bookId: bookId },
+  console.log("Book Title:", title); // Debugging line
+
+  const { loading, data, error } = useQuery(QUERY_BOOK_BY_TITLE, {
+    variables: { title },
   });
 
-  const book = data?.book || {};
+  const [addToBookshelf] = useMutation(ADD_TO_BOOKSHELF, {
+    onCompleted: (data) => {
+      console.log("Book added to bookshelf:", data);
+    },
+    onError: (err) => {
+      console.error("Error adding book to bookshelf:", err);
+    },
+  });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Flex justify="center" align="center" minH="100vh">
+        <Spinner size="xl" />
+      </Flex>
+    );
   }
-  return (
-    <div className="my-3">
-      <h3 className="card-header bg-dark text-light p-2 m-0">
-        {book.bookReviewAuthor} <br />
-        <span style={{ fontSize: '1rem' }}>
-          had shared this on {book.createdAt}
-        </span>
-      </h3>
-      <div className="bg-light py-4">
-        <blockquote
-          className="p-4"
-          style={{
-            fontSize: '1.5rem',
-            fontStyle: 'italic',
-            border: '2px dotted #1a1a1a',
-            lineHeight: '1.5',
-          }}
-        >
-          {book.bookText}
-        </blockquote>
-      </div>
 
-      <div className="my-5">
-        <CommentList comments={book.comments} />
+  if (error) {
+    console.error("Error fetching book data:", error);
+    return (
+      <div>
+        Error loading book data. Please check the console for more details.
       </div>
-      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        <CommentForm bookId={book._id} />
-      </div>
-    </div>
+    );
+  }
+
+  const book = data?.bookByTitle || {};
+
+  const formattedDate = book.createdAt
+    ? new Date(book.createdAt).toLocaleDateString()
+    : "Unknown Date";
+
+  const handleAddToBookshelf = async () => {
+    try {
+      await addToBookshelf({
+        variables: { bookId: book._id },
+      });
+    } catch (err) {
+      console.error("Error adding book to bookshelf:", err);
+    }
+  };
+
+  return (
+    <Container maxW="container.md">
+      <Flex direction="column" align="center" justify="center" minH="100vh">
+        <Box w="100%" p={6} boxShadow="md" borderRadius="md" textAlign="center">
+          {book.image && (
+            <Image src={book.image} alt={book.title} borderRadius="md" mb={4} />
+          )}
+          <VStack align="start" spacing={4}>
+            {book.title && (
+              <Heading as="h1" size="xl">
+                {book.title}
+              </Heading>
+            )}
+            {book.author && (
+              <Text fontSize="lg" color="gray.600">
+                {book.author}
+              </Text>
+            )}
+            {book.review && <Text fontSize="md">{book.review}</Text>}
+            {book.rating && (
+              <Text fontSize="lg" fontWeight="bold">
+                Rating: {book.rating}
+              </Text>
+            )}
+            {book.bookReviewAuthor && (
+              <Text fontSize="sm" color="gray.500">
+                Reviewed by {book.bookReviewAuthor} on {formattedDate}
+              </Text>
+            )}
+            <Button colorScheme="teal" size="md" onClick={handleAddToBookshelf}>
+              Add to MyBookshelf
+            </Button>
+          </VStack>
+          <Box mt={8}>
+            <Heading as="h2" size="lg">
+              Comments
+            </Heading>
+            <CommentList comments={book.comments} />
+            <CommentForm bookId={book._id} bookTitle={book.title} />
+          </Box>
+        </Box>
+      </Flex>
+    </Container>
   );
 };
 
