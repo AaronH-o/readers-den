@@ -28,9 +28,10 @@ export const QUERY_BOOKS = gql`
       _id
       title
       author
+      image
       reviews {
         _id
-        text
+        reviewText
         userId
       }
       createdAt
@@ -41,21 +42,11 @@ export const QUERY_BOOKS = gql`
 //single book
 export const QUERY_SINGLE_BOOK = gql`
   query getsingleBook($bookId: ID!) {
-    book(bookId: "1") {
-      _id
+    book(bookId: $bookId) {
       title
       author
       image
-      review
-      rating
-      bookReviewAuthor
       createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-        username
-      }
     }
   }
 `;

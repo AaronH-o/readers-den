@@ -14,16 +14,22 @@ const CommentForm = ({ bookId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     try {
-      const { data } = await addReview({
-        variables: {
-          bookId,
-          reviewText,
-          // userId,
-        },
-      });
-      console.log(data);
+      if(!Auth.getProfile().data._id) {
+        console.error('this failed');
+        return;
+      } else {
+        
+        const { data } = await addReview({
+          variables: {
+            bookId,
+            reviewText,
+            userId: Auth.getProfile().data._id,
+          },
+        });
+        
+        console.log(data);
+      }
       setReviewText("");
     } catch (err) {
       console.error(err);

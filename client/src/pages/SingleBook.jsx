@@ -12,7 +12,7 @@ import {
   Spinner,
   Button,
 } from "@chakra-ui/react";
-import { QUERY_BOOK_BY_TITLE } from "../utils/queries";
+import { QUERY_SINGLE_BOOK } from "../utils/queries";
 import { ADD_TO_BOOKSHELF } from "../utils/mutations";
 import CommentList from "../components/CommentList";
 import CommentForm from "../components/CommentForm";
@@ -22,8 +22,8 @@ const SingleBook = () => {
 
   console.log("Book Title:", title); // Debugging line
 
-  const { loading, data, error } = useQuery(QUERY_BOOK_BY_TITLE, {
-    variables: { title },
+  const { loading, data, error } = useQuery(QUERY_SINGLE_BOOK, {
+    variables: { bookId: title},
   });
 
   const [addToBookshelf] = useMutation(ADD_TO_BOOKSHELF, {
@@ -105,8 +105,7 @@ const SingleBook = () => {
             <Heading as="h2" size="lg">
               Comments
             </Heading>
-            <CommentList comments={book.comments} />
-            <CommentForm bookId={book._id} bookTitle={book.title} />
+            <CommentForm bookId={title} bookTitle={book.title} />
           </Box>
         </Box>
       </Flex>

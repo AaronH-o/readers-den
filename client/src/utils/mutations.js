@@ -97,13 +97,9 @@ export const EDIT_BOOK = gql`
 //   }
 // `;
 export const ADD_REVIEW = gql`
-  mutation addReview($bookId: ID!, $reviewText: String!) {
-    addReview(bookId: $bookId, reviewText: $reviewText) {
+  mutation addReview($bookId: ID!, $reviewText: String!, $userId: ID!) {
+    addReview(bookId: $bookId, reviewText: $reviewText, userId: $userId) {
       _id
-      text
-      userId
-      createdAt
-      bookId
     }
   }
 `;

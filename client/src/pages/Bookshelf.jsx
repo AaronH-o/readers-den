@@ -1,6 +1,8 @@
 // import React from "react";
 import { Box, Flex, Heading, Container, SimpleGrid } from "@chakra-ui/react";
 import BookCard from "../components/BookCard";
+import { useQuery } from "@apollo/client";
+import { QUERY_BOOKS } from "../utils/queries";
 
 const bookData = [
   {
@@ -154,6 +156,8 @@ const bookData = [
   },
 ];
 
+
+
 const groupBooksByClub = (books) => {
   return books.reduce((groups, book) => {
     const club = book.club;
@@ -165,9 +169,19 @@ const groupBooksByClub = (books) => {
   }, {});
 };
 
-const groupedBooks = groupBooksByClub(bookData);
+
 
 const Bookshelf = () => {
+
+  const { loading, data } = useQuery(QUERY_BOOKS);
+  if(!data) {
+    return;
+  }
+  console.log(data);
+
+  const groupedBooks = groupBooksByClub(data.books);
+  console.log(groupedBooks)
+
   return (
     <Container maxW="container.md">
       <Flex direction="column" align="center" justify="center" minH="100vh">
