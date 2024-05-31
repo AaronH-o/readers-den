@@ -97,7 +97,7 @@ const resolvers = {
       }
       throw AuthenticationError;
       ('You need to be logged in!');
-    }
+    },
     addRating: async (parent, { value, userId, bookId }) => {
       const rating = await Rating.create({ value, userId, bookId });
       return rating;
