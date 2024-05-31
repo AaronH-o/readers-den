@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import { QUERY_SINGLE_BOOK } from "../utils/queries";
 import { ADD_TO_BOOKSHELF } from "../utils/mutations";
-import CommentList from "../components/CommentList";
 import CommentForm from "../components/CommentForm";
 
 const SingleBook = () => {
