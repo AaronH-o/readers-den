@@ -35,6 +35,12 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    reviews: async () => {
+      return Review.find().populate();
+    },
+    review: async (parent, { id }) => {
+      return Review.findOne({ id }).populate();
+    },
   },
 
   Mutation: {
@@ -64,54 +70,34 @@ const resolvers = {
       return book;
     },
     addReview: async (parent, { bookId, reviewText, userId }) => {
-      const book = await Book.findOneAndUpdate(
-        { _id: bookId },
-        {
-          $addToSet: {
-            reviews: { reviewText, userId },
-          },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-      return book;
+      const review = await Review.create({ bookId, reviewText, userId });
+      return review;
     },
     addClub: async (parent, { name }) => {
-      const club = await Club.create({ name });
-      return club;
+      const user = await Club.create({ name });
     },
-    addBookToClub: async (parent, { clubId, bookId }) => {
-      const club = await Club.findOneAndUpdate(
-        { _id: clubId },
-        {
-          $addToSet: {
-            books: bookId,
-          },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-      return club;
+    addBookToClub: async (parent, { clubId, bookId}, context) => {
+      if (context.user) {
+        await Club.findOneAndUpdate(
+          { _id: clubId},
+          { $addToSet: { books: bookId}}
+        )
+        return;
+      }
+      throw AuthenticationError;
+      ('You need to be logged in!');
     },
-    addUserToClub: async (parent, { clubId, userId }) => {
-      const club = await Club.findOneAndUpdate(
-        { _id: clubId },
-        {
-          $addToSet: {
-            users: userId,
-          },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-      return club;
-    },
+    addUserToClub: async (parent, { clubId, userId}, context) => {
+      if (context.user) {
+        await Club.findOneAndUpdate(
+          { _id: clubId},
+          { $addToSet: { users: userId}}
+        )
+        return;
+      }
+      throw AuthenticationError;
+      ('You need to be logged in!');
+    }
     addRating: async (parent, { value, userId, bookId }) => {
       const rating = await Rating.create({ value, userId, bookId });
       return rating;
@@ -149,29 +135,6 @@ const resolvers = {
           { new: true }
         ).populate("books");
         return updatedUser;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
-    addComment: async (
-      parent,
-      { bookId, commentText, commentAuthor },
-      context
-    ) => {
-      if (context.user) {
-        const updatedBook = await Book.findOneAndUpdate(
-          { _id: bookId },
-          {
-            $addToSet: {
-              comments: {
-                commentText,
-                commentAuthor,
-                createdAt: new Date().toISOString(),
-              },
-            },
-          },
-          { new: true }
-        ).populate("comments");
-        return updatedBook;
       }
       throw new AuthenticationError("You need to be logged in!");
     },

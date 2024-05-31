@@ -66,6 +66,8 @@ const typeDefs = `
     clubs: [Club]
     club(clubId: ID!): Club
     me: User
+    reviews: [Review]
+    review(reviewId: ID!): Review
   }
 
   type Mutation {
