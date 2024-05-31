@@ -27,6 +27,12 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    reviews: async () => {
+      return Review.find().populate();
+    },
+    review: async (parent, { id }) => {
+      return Review.findOne({ id }).populate();
+    },
   },
 
   Mutation: {
@@ -53,10 +59,12 @@ const resolvers = {
       return { token, user };
     },
     addBook: async (parent, { title, author }) => {
-      const user = await Book.create({ title, author });
+      const book = await Book.create({ title, author });
+      return book;
     },
     addReview: async (parent, { bookId, reviewText, userId }) => {
-      const user = await Review.create({ bookId, reviewText, userId });
+      const review = await Review.create({ bookId, reviewText, userId });
+      return review;
     },
     addClub: async (parent, { name }) => {
       const user = await Club.create({ name });
