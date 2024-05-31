@@ -1,5 +1,5 @@
 // const { AuthenticationError } = require("apollo-server-express");
-const { User, Book, Club } = require("../models");
+const { User, Book, Club, Review, Rating } = require("../models");
 const { signToken } = require("../utils/auth");
 const { GraphQLScalarType } = require("graphql");
 const { Kind } = require("graphql/language");
@@ -13,13 +13,13 @@ const resolvers = {
       return User.findOne({ username }).populate("books").populate("clubs");
     },
     books: async () => {
-      return Book.find().populate("comments");
+      return Book.find().populate("users").populate("ratings").populate("reviews");
     },
     book: async (parent, { bookId }) => {
-      return Book.findOne({ _id: bookId }).populate("comments");
+      return Book.findOne({ _id: bookId }).populate("users").populate("ratings").populate("reviews");
     },
     bookByTitle: async (parent, { title }) => {
-      return Book.findOne({ title }).populate("comments");
+      return Book.findOne({ title }).populate("users").populate("ratings").populate("reviews");
     },
     clubs: async () => {
       return Club.find().populate("books").populate("users");
@@ -39,7 +39,7 @@ const resolvers = {
       return Review.find().populate();
     },
     review: async (parent, { id }) => {
-      return Review.findOne({ id }).populate();
+      return Review.findOne({ _id: id }).populate();
     },
   },
 
@@ -69,7 +69,7 @@ const resolvers = {
       const book = await Book.create({ title, author });
       return book;
     },
-    addReview: async (parent, { bookId, reviewText }, context) => {
+    addReview: async (parent, { bookId, reviewText, userId }, context) => {
       const review = await Review.create({ bookId, reviewText, userId });
       return review;
     },

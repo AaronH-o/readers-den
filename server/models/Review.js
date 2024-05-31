@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const reviewSchema = new Schema({
-  text: {
+  reviewText: {
     type: String,
     required: true,
     minlength: 1,

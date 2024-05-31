@@ -7,6 +7,10 @@ const clubSchema = new Schema({
     unique: true,
     trim: true,
   },
+  image: {
+    type: String,
+    trim: true,
+  },
   books: [
     {
       type: Schema.Types.ObjectId,
