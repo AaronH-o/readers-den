@@ -16,6 +16,7 @@ const resolvers = {
       return Book.find().populate("users").populate("ratings").populate("reviews");
     },
     book: async (parent, { bookId }) => {
+      console.log('getting book', bookId)
       return Book.findOne({ _id: bookId }).populate("users").populate("ratings").populate("reviews");
     },
     bookByTitle: async (parent, { title }) => {
