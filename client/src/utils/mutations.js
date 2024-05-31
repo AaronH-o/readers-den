@@ -76,21 +76,26 @@ export const EDIT_BOOK = gql`
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation addComment($bookId: ID!, $commentText: String!) {
-    addComment(bookId: $bookId, commentText: $commentText) {
-      _id
-      title
-      author
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
-      }
-    }
-  }
-`;
+// export const ADD_COMMENT = gql`
+//   mutation addComment($bookId: ID!, $commentText: String!) {
+//     addComment(
+//       bookId: $bookId
+//       commentText: $commentText
+//       commentAuthor: $commentAuthor
+//     ) {
+//       _id
+//       title
+//       author
+//       createdAt
+//       comments {
+//         _id
+//         commentText
+//         commentAuthor
+//         createdAt
+//       }
+//     }
+//   }
+// `;
 export const ADD_REVIEW = gql`
   mutation addReview($bookId: ID!, $reviewText: String!) {
     addReview(bookId: $bookId, reviewText: $reviewText) {
@@ -227,6 +232,20 @@ export const REMOVE_RATING = gql`
     removeRating(ratingId: $ratingId) {
       _id
       value
+    }
+  }
+`;
+export const ADD_TO_BOOKSHELF = gql`
+  mutation addToBookshelf($bookId: ID!) {
+    addToBookshelf(bookId: $bookId) {
+      _id
+      username
+      bookshelf {
+        _id
+        title
+        author
+        image
+      }
     }
   }
 `;

@@ -1,30 +1,30 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 
-import { ADD_COMMENT } from '../../utils/mutations';
+import { ADD_REVIEW } from "../../utils/mutations";
 
-import Auth from '../../utils/auth';
+import Auth from "../../utils/auth";
 
 const CommentForm = ({ bookId }) => {
-  const [commentText, setCommentText] = useState('');
+  const [reviewText, setReviewText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addComment, { error }] = useMutation(ADD_COMMENT);
+  const [addReview, { error }] = useMutation(ADD_REVIEW);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { data } = await addComment({
+      const { data } = await addReview({
         variables: {
           bookId,
-          commentText,
-          commentAuthor: Auth.getProfile().data.username,
+          reviewText,
+          // userId,
         },
       });
-
-      setCommentText('');
+      console.log(data);
+      setReviewText("");
     } catch (err) {
       console.error(err);
     }
@@ -33,8 +33,8 @@ const CommentForm = ({ bookId }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'commentText' && value.length <= 280) {
-      setCommentText(value);
+    if (name === "commentText" && value.length <= 50) {
+      setReviewText(value);
       setCharacterCount(value.length);
     }
   };
@@ -47,10 +47,10 @@ const CommentForm = ({ bookId }) => {
         <>
           <p
             className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
+              characterCount === 280 || error ? "text-danger" : ""
             }`}
           >
-            Character Count: {characterCount}/280
+            Character Count: {characterCount}/50
             {error && <span className="ml-2">{error.message}</span>}
           </p>
           <form
@@ -61,9 +61,9 @@ const CommentForm = ({ bookId }) => {
               <textarea
                 name="commentText"
                 placeholder="Add your comment..."
-                value={commentText}
+                value={reviewText}
                 className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
             </div>
@@ -77,7 +77,7 @@ const CommentForm = ({ bookId }) => {
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please{' '}
+          You need to be logged in to share your thoughts. Please{" "}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
