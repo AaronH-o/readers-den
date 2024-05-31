@@ -13,11 +13,21 @@ const typeDefs = `
     title: String
     author: String
     image: String
+    review: String
+    rating: Int
     createdAt: String
-    reviews: [Review]
-    clubs:[Club]
-    user:[User]
-    ratings:[Rating]
+    bookReviewAuthor: String
+    clubs: [Club]
+    user: [User]
+    ratings: [Rating]
+    comments: [Comment]
+  }
+
+  type Comment {
+    _id: ID
+    commentText: String
+    commentAuthor: String
+    createdAt: String
   }
 
   type Review {
@@ -52,6 +62,7 @@ const typeDefs = `
     user(username: String!): User
     books: [Book]
     book(bookId: ID!): Book
+    bookByTitle(title: String!): Book
     clubs: [Club]
     club(clubId: ID!): Club
     me: User
@@ -69,6 +80,8 @@ const typeDefs = `
     removeBook(bookId: ID!): Book
     removeReview(bookId: ID!, reviewId: ID!): Book
     removeRating(ratingId: ID!): Rating
+    addToBookshelf(bookId: ID!): User
+    addComment(bookId: ID!, commentText: String!, commentAuthor: String!): Book
   }
 `;
 
