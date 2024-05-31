@@ -69,12 +69,13 @@ const resolvers = {
       const book = await Book.create({ title, author });
       return book;
     },
-    addReview: async (parent, { bookId, reviewText, userId }) => {
+    addReview: async (parent, { bookId, reviewText }, context) => {
       const review = await Review.create({ bookId, reviewText, userId });
       return review;
     },
     addClub: async (parent, { name }) => {
-      const user = await Club.create({ name });
+      const club = await Club.create({ name });
+      return club;
     },
     addBookToClub: async (parent, { clubId, bookId}, context) => {
       if (context.user) {
