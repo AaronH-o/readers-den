@@ -3,6 +3,7 @@ import { Box, Heading, Flex } from "@chakra-ui/react";
 import BookList from "../components/BookList";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
+// import { ADD_REVIEW } from "../utils/mutations";
 
 const MyBookshelf = () => {
   const { loading, data } = useQuery(QUERY_ME);

@@ -15,14 +15,14 @@ import {
 import { QUERY_SINGLE_BOOK } from "../utils/queries";
 import { ADD_TO_BOOKSHELF } from "../utils/mutations";
 import CommentForm from "../components/CommentForm";
-
+import Auth from "../utils/auth";
 const SingleBook = () => {
   const { title } = useParams(); // Assume the URL contains the book title
 
   console.log("Book Title:", title); // Debugging line
 
   const { loading, data, error } = useQuery(QUERY_SINGLE_BOOK, {
-    variables: { bookId: title},
+    variables: { bookId: title },
   });
 
   const [addToBookshelf] = useMutation(ADD_TO_BOOKSHELF, {
@@ -51,7 +51,7 @@ const SingleBook = () => {
     );
   }
 
-  const book = data?.bookByTitle || {};
+  const book = data?.book || {};
 
   const formattedDate = book.createdAt
     ? new Date(book.createdAt).toLocaleDateString()
@@ -60,7 +60,7 @@ const SingleBook = () => {
   const handleAddToBookshelf = async () => {
     try {
       await addToBookshelf({
-        variables: { bookId: book._id },
+        variables: { bookId: book._id, userId: Auth.getProfile().data._id },
       });
     } catch (err) {
       console.error("Error adding book to bookshelf:", err);

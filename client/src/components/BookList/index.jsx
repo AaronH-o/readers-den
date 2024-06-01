@@ -57,7 +57,7 @@ const BookList = ({
               <Text>{book.bookReviewText}</Text>
             </Box>
             <Box p={6} textAlign="center">
-              <Button as={Link} to={`/books/${book._id}`} colorScheme="blue">
+              <Button as={Link} to={`/books/${book.title}`} colorScheme="blue">
                 Join the book club
               </Button>
             </Box>

@@ -61,6 +61,7 @@ export const QUERY_ME = gql`
         _id
         title
         author
+        image
         createdAt
       }
     }
