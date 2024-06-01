@@ -232,8 +232,8 @@ export const REMOVE_RATING = gql`
   }
 `;
 export const ADD_TO_BOOKSHELF = gql`
-  mutation addToBookshelf($bookId: ID!) {
-    addToBookshelf(bookId: $bookId) {
+  mutation addToBookshelf($bookId: ID!, $userId: ID!) {
+    addToBookshelf(bookId: $bookId, userId: $userId) {
       _id
       username
       bookshelf {
