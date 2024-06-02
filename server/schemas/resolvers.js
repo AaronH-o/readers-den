@@ -79,15 +79,11 @@ const resolvers = {
       return club;
     },
     addBookToClub: async (parent, { clubId, bookId}, context) => {
-      if (context.user) {
-        await Club.findOneAndUpdate(
-          { _id: clubId},
-          { $addToSet: { books: bookId}}
-        )
-        return;
-      }
-      throw AuthenticationError;
-      ('You need to be logged in!');
+      await Club.findOneAndUpdate(
+        { _id: clubId},
+        { $addToSet: { books: bookId}}
+      )
+      return;
     },
     addUserToClub: async (parent, { clubId, userId}, context) => {
       if (context.user) {
@@ -129,16 +125,14 @@ const resolvers = {
       const rating = await Rating.findOneAndDelete({ _id: ratingId });
       return rating;
     },
-    addToBookshelf: async (parent, { bookId }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { books: bookId } },
-          { new: true }
-        ).populate("books");
-        return updatedUser;
-      }
-      throw new AuthenticationError("You need to be logged in!");
+    addToBookshelf: async (parent, { bookId, userId }) => {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: userId },
+        { $addToSet: { books: bookId } },
+        {new: true},
+      );
+      console.log(updatedUser, userId, bookId);
+      return updatedUser;
     },
   },
 };
