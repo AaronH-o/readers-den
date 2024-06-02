@@ -73,7 +73,7 @@ const typeDefs = `
     removeBook(bookId: ID!): Book
     removeReview(bookId: ID!, reviewId: ID!): Book
     removeRating(ratingId: ID!): Rating
-    addToBookshelf(bookId: ID!): User
+    addToBookshelf(bookId: ID!, userId: ID!): User
   }
 `;
 
