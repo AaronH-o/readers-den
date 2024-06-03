@@ -30,6 +30,7 @@ const CommentForm = ({ bookId }) => {
         
         console.log(data);
       }
+      setCharacterCount(0);
       setReviewText("");
     } catch (err) {
       console.error(err);
