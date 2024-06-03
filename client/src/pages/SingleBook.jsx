@@ -60,7 +60,7 @@ const SingleBook = () => {
   const handleAddToBookshelf = async () => {
     try {
       await addToBookshelf({
-        variables: { bookId: book._id, userId: Auth.getProfile().data._id },
+        variables: { bookId: title, userId: Auth.getProfile().data._id },
       });
     } catch (err) {
       console.error("Error adding book to bookshelf:", err);

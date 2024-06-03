@@ -126,6 +126,7 @@ const resolvers = {
       return rating;
     },
     addToBookshelf: async (parent, { bookId, userId }) => {
+      console.log(userId, bookId)
       const updatedUser = await User.findOneAndUpdate(
         { _id: userId },
         { $addToSet: { books: bookId } },

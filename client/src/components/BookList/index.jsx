@@ -19,11 +19,11 @@ const BookList = ({
 
   return (
     <Box>
-      {showTitle && (
+      {/* {showTitle && (
         <Heading as="h3" size="lg" mb={4}>
           {title}
         </Heading>
-      )}
+      )} */}
       {showAuthor && (
         <Heading as="h2" size="md" mb={4}>
           {author}
@@ -55,11 +55,6 @@ const BookList = ({
             <Box p={6}>
               <Image src={book.image} alt={book.title} mb={4} />
               <Text>{book.bookReviewText}</Text>
-            </Box>
-            <Box p={6} textAlign="center">
-              <Button as={Link} to={`/books/${book.title}`} colorScheme="blue">
-                Join the book club
-              </Button>
             </Box>
           </Box>
         ))}

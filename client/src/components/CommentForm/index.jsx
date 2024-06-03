@@ -47,7 +47,7 @@ const CommentForm = ({ bookId }) => {
 
   return (
     <div>
-      <h4>What did you think of this review?</h4>
+      <h4>What do you think of this book?</h4>
 
       {Auth.loggedIn() ? (
         <>
