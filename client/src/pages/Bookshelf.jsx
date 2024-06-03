@@ -34,9 +34,6 @@ const Bookshelf = () => {
           </Heading>
           {Object.keys(groupedBooks).map((club, index) => (
             <Box key={index} mb={8} w="100%">
-              <Heading as="h2" size="lg" mb={4} textAlign="left">
-                {club}
-              </Heading>
               <SimpleGrid columns={[1, null, 2]} spacing={6}>
                 {groupedBooks[club].map((book, idx) => (
                   <BookCard
