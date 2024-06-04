@@ -1,4 +1,5 @@
 # readers-den
+
 # Description
 Develop a platform where users can join book clubs, track their reading progress, and participate in discussions.
 
@@ -20,11 +21,19 @@ SO THAT I can create collections and see my rating versus the group ratings
 
 # Usage & Installiation
 
+To use this application, please visit the deployed link below.
 
 # Deployed App Link
 
-
-# Challenges
+ Deployed App Link: [Readers Den](https://readers-den.onrender.com/)
 
 
 # Credits
+
+* [React](https://reactjs.org/)
+* [Apollo](https://www.apollographql.com/)
+* [Chakra UI](https://chakra-ui.com/)
+* [Node.js](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [MongoDB](https://www.mongodb.com/)
+* [GraphQL](https://graphql.org/)
